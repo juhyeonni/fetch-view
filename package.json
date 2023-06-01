@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "json-server": "^0.17.3",
+    "serve": "^14.2.0"
+  },
+  "scripts": {
+    "start": "serve . -p 3000",
+    "dev": "npm run rundb | npm run start",
+    "rundb": "json-server --watch ./server/db.json --port 7000"
+  }
+}
