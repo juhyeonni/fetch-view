@@ -1,40 +1,65 @@
 {
-  "posts": [
+  "accounts": [
     {
-      "id": 1,
-      "title": "Story 1",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliq",
-      "image": "https://images.unsplash.com/photo-1517329782449-810562a4ec2f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1763&q=80"
+      "id": "1",
+      "name": "d556f8",
+      "email": "",
+      "password": "1234"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "1",
+      "name": "d556f8",
+      "image": "https://github.com/d556f8.png"
     },
     {
-      "id": 2,
-      "title": "Story 2",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliq",
-      "image": "https://images.unsplash.com/photo-1661956600684-97d3a4320e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2970&q=80"
+      "id": "2",
+      "name": "2201400",
+      "image": "https://github.com/2201400.png"
     },
     {
-      "id": 3,
-      "title": "Story 3",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliq",
-      "image": "https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
+      "id": "3",
+      "name": "hetame1",
+      "image": "https://github.com/hetame1.png"
     },
     {
-      "id": 4,
-      "title": "Story 4",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliq",
-      "image": "https://images.unsplash.com/photo-1566438480900-0609be27a4be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=788&q=80"
+      "id": "4",
+      "name": "HyunjinHa",
+      "image": "https://github.com/HyunjinHa.png"
     },
     {
-      "id": 5,
-      "title": "Story 5",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliq",
-      "image": "https://images.unsplash.com/photo-1488372759477-a7f4aa078cb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
+      "id": "5",
+      "name": "Jaeil-Lee",
+      "image": "https://github.com/Jaeil-Lee.png"
     },
     {
-      "id": 6,
-      "title": "Story 6",
-      "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla euismod, nisl eget ultricies aliquam, nunc nisl aliquet nunc, vitae aliq",
-      "image": "https://images.unsplash.com/photo-1574169208507-84376144848b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1179&q=80"
+      "id": "6",
+      "name": "Lsy04178",
+      "image": "https://github.com/Lsy04178.png"
+    }
+  ],
+  "stories": [
+    {
+      "id": "1",
+      "user_id": "1",
+      "title": "Story1",
+      "content": "Story1 Content",
+      "content_img": "https://images.pexels.com/photos/2893685/pexels-photo-2893685.jpeg?auto=compress&cs=tinysrgb&w=800"
+    },
+    {
+      "id": "2",
+      "user_id": "2",
+      "title": "Story2",
+      "content": "Story2 Content",
+      "content_img": "https://images.pexels.com/photos/2892012/pexels-photo-2892012.jpeg?auto=compress&cs=tinysrgb&w=8004"
+    },
+    {
+      "id": "3",
+      "user_id": "1",
+      "title": "Story3",
+      "content": "Story3 Content",
+      "content_img": "https://images.pexels.com/photos/922611/pexels-photo-922611.jpeg?auto=compress&cs=tinysrgb&w=800"
     }
   ]
 }

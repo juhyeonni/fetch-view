@@ -9,10 +9,30 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
   <style>
-    .storyview-content-item > .storyview-content-item-wrapper > img {
+    .story-list {
+      display: flex;
+    }
+
+    .story-item {
+      width: 150px;
+      height: 150px;
+    }
+
+    .story-item > .story-profile {
+      width: 100%;
+      height: 100%;
+      background-color: #dbdbdb;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .story-item > .story-profile > img {
       width: 100px;
       height: 100px;
-      object-fit: cover;
+      border-radius: 50%;
     }
 
   </style>
@@ -24,7 +44,9 @@
 
   <script>
     // root에 storyview-component를 렌더링해준다.
-    document.getElementById('root').innerHTML = `
+    const root = document.getElementById('root')
+    root.innerHTML = `
+      <div class="modal" tabindex="-1" role="dialog"></div> 
       <storyview-component></storyview-component>
     `;
     
@@ -32,96 +54,123 @@
       constructor() {
         super();
         
-        // StoryView의 data이다.
-        // story의 정보를 담는 배열이다.
-        this.data = [];
+        this.profiles = [];
     
-        // StoryView의 template이다.
         this.innerHTML = `
-          <div class="storyview">
-            <div class="storyview-header">
-              <div class="storyview-content">
-                <ul class="storyview-content-list">
-                  <!-- TODO: <li class="storyview-content-item"></li> -->
-                </ul>
+          <div class="story-wrapper">
+            <ul class="story-list"></ul>
+          </div>
+        `;
+
+        this.storyList = this.querySelector('.story-list');
+      }
+
+      async fetchProfiles() {
+        const res = await fetch('http://localhost:7000/profiles');
+        this.profiles = await res.json();
+
+        this.render();
+      }
+
+      async connectedCallback() {
+        await this.fetchProfiles();
+
+        this.render();
+      }
+
+      renderStoryList() {
+        this.storyList.innerHTML = '';
+        this.profiles.forEach(profile => {
+          const storyItem = new StoryItem(profile);
+          this.storyList.appendChild(storyItem);
+        });
+      }
+
+      render() {
+        this.renderStoryList();
+      }
+    }
+
+    class StoryItem extends HTMLLIElement {
+      constructor({id, name, image}) {
+        super();
+
+        this.profile = {id, name, image};
+
+        this.classList.add('story-item');
+
+        this.innerHTML = `
+          <div class="story-profile">
+            <img src="${image}"></img>
+            <span>${name}</span>
+          </div>
+        `;
+
+        this.addEventListener('click', () => {
+          // FIXME: test code
+          console.log(this.profile);
+          const old = document.querySelector('.modal');
+          old.parentNode.replaceChild(new StoryModal(this.profile), old);
+
+        });
+      }
+    }
+
+    class StoryModal extends HTMLDivElement {
+      constructor({id}) {
+        super();
+        this.user_id = id;
+        this.story = {};
+
+        this.classList.add('modal');
+        this.classList.add('fade');
+
+        this.innerHTML = `
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h1>hello world</h1>
               </div>
             </div>
           </div>
-          <button class="view-fetch-btn">Fetch</button>
-          <button class="new-data-btn">New Data</button>
         `;
-        
-        // storyview-content-list는 각 스토리를 표현해줄 수 있는 요소이다.
-        this.storyviewContentList = this.querySelector('.storyview-content-list');
 
-        // viewFetch는 fetch를 통해 데이터를 가져오는 버튼이다.
-        this.viewFetch = this.querySelector('.view-fetch-btn');
-        this.viewFetch.addEventListener('click', async () => await this.initData());
-
-        // newDataBtn은 새로운 데이터를 추가하는 버튼이다.
-        // 여기서는 테스트용으로 임시로 데이터를 추가해주었다.
-        this.newDataBtn = this.querySelector('.new-data-btn');
-        this.newDataBtn.addEventListener('click', async () => await this.postNewData({
-          title: 'new title',
-          content: 'new content',
-          image: 'https://picsum.photos/200/300',
-        }));
-      }
-      
-      // story를 표현해주는 template이다.
-      // id, title, content, image를 받아서 template을 반환한다.
-      storyviewContentItemTemplate({ id, title, content, image }) {
-        const template = `
-          <li class="storyview-content-item">
-            <div class="storyview-content-item-wrapper">
-              <h1>${title}</h1>
-              <p>${content}</p>
-              <img src="${image}" />
-            </div>
-          </li>
-        `;
-        return template;
       }
 
-      async postNewData({title, content, image}) {
-        const res = await fetch('http://localhost:7000/posts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({title, content, image}),
-        });
+      async connectedCallback() {
+        await this.fetchStory();
 
-        if (res.ok) {
-          console.log(res.status);
-        } else {
-          console.error(res.status);
-        }
-      }
-    
-      async initData() {
-        const res = await fetch('http://localhost:7000/posts');
-        this.data = await res.json();
-    
         this.render();
       }
-      
-      // 해당 StoryView가 DOM에 추가되었을 때 실행되는 함수이다.
-      async connectedCallback() {
-        await this.initData();
+
+      async fetchStory() {
+        const res = await fetch(`http://localhost:7000/stories`);
+        const data = await res.json();
+        console.log('raw data', data);
+        this.story = data.find(story => story.user_id === this.user_id);
+        console.log(this.story);
+
         this.render();
       }
       
       render() {
-        // data를 통해 storyview-content-list를 렌더링해준다.
-        this.storyviewContentList.innerHTML = '';
-        this.data.forEach((item) => {
-          this.storyviewContentList.innerHTML +=
-            this.storyviewContentItemTemplate(item);
-        });
+        const { title, content, content_img } = this.story;
+        this.innerHTML = `
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h1>${title}</h1>
+                <p>${content}</p>
+                <img src="${content_img}" style="width: 100px; height: 100px;"></img>
+              </div>
+            </div>
+          </div>
+        `;
       }
     }
-    
+
+    window.customElements.define('story-modal', StoryModal, { extends: 'div' });
+    window.customElements.define('story-item', StoryItem, { extends: 'li' });
     window.customElements.define('storyview-component', StoryView); 
   </script>
 </body>
