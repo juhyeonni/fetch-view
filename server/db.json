@@ -61,5 +61,20 @@
       "content": "Story3 Content",
       "content_img": "https://images.pexels.com/photos/922611/pexels-photo-922611.jpeg?auto=compress&cs=tinysrgb&w=800"
     }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "name": "",
+      "post_description": "",
+      "post_img": "url",
+      "statements": [
+        {
+          "visitor": "",
+          "comment": ""
+        }
+      ],
+      "likes": ""
+    }
   ]
 }

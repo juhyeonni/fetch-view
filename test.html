@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" id="file" onchange="test(event)">
+</body>
+</html>
+
+<script>
+  const CORS_PROXY = 'https://juhyeon-cors-anywhere.herokuapp.com/';
+  //  const CORS_PROXY = 'http://localhost:15000/';
+
+  const URL = `${CORS_PROXY}https://thumbsnap.com/api/upload`;
+  
+  const API_KEY = '00043bc7ce8f9a5cfd593b3c860d89ad';
+
+  async function test(event) {
+
+    const file = event.target.files[0];
+
+    const formData = new FormData();
+    formData.append('media', file);
+    formData.append('key', API_KEY)
+
+    const res = await fetch(URL, {
+      headers: {
+        'Origin': 'http://localhost:5500/',
+      },
+      method: 'POST',
+      body: formData,
+    });
+    console.log(res);
+    const data = await res.json();
+    console.log(data);
+  }
+
+</script>
