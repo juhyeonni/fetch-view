@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <form action="">
+    <input type="text" name="name">
+    <input type="password" name="password">
+    <button>send</button>
+  </form>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const userToken = sessionStorage.getItem('userToken');
+
+      if (!userToken) {
+        console.log('로그인 안되어있음');
+        return;
+      }
+
+      logon(userToken);
+    })
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData);
+
+      login(data);
+    })
+
+    async function getAccounts() {
+      const res = await fetch('http://localhost:7000/accounts');
+      const data = await res.json();
+      return data;
+    }
+
+    async function patchToken(id, userToken) {
+      await fetch(`http://localhost:7000/accounts/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userToken }),
+      });
+    }
+
+    async function logon(userToken) {
+      const res = await getAccounts();
+      const account = res.find((item) => {
+        return item.userToken === userToken;
+      })
+
+      if (!account) throw Error('로그인이 필요합니다.');
+
+      console.log('로그인 성공');
+      
+      return account.id;
+    }
+
+    async function login(data) {
+      const accounts = await getAccounts();
+      const account = accounts.find((item) => {
+        return item.name === data.name && item.password === data.password;
+      })
+
+      if (!account) throw Error('아이디 또는 비밀번호가 일치하지 않습니다.');
+
+      const token = generateToken();
+
+      await patchToken(account.id, token);
+
+      sessionStorage.setItem('userToken', token);
+
+      console.log('로그인 성공')
+      console.log(sessionStorage.getItem('userToken'));
+      console.log(account);
+    }
+
+    function generateToken() {
+      const GENERATE_TOKEN_LENGTH = 20;
+    
+      const characters =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    
+      let token = '';
+    
+      for (let i = 0; i < GENERATE_TOKEN_LENGTH; i++) {
+        token += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+    
+      return token;
+    }
+
+  </script>
+</body>
+</html>

@@ -1,80 +1,19 @@
 {
   "accounts": [
     {
-      "id": "1",
+      "id": 1,
       "name": "d556f8",
       "email": "",
-      "password": "1234"
-    }
-  ],
-  "profiles": [
-    {
-      "id": "1",
-      "name": "d556f8",
-      "image": "https://github.com/d556f8.png"
+      "password": "1234",
+      "userToken": "fb4DgVmuw8Jekag67bLQ"
     },
     {
-      "id": "2",
-      "name": "2201400",
-      "image": "https://github.com/2201400.png"
-    },
-    {
-      "id": "3",
-      "name": "hetame1",
-      "image": "https://github.com/hetame1.png"
-    },
-    {
-      "id": "4",
-      "name": "HyunjinHa",
-      "image": "https://github.com/HyunjinHa.png"
-    },
-    {
-      "id": "5",
-      "name": "Jaeil-Lee",
-      "image": "https://github.com/Jaeil-Lee.png"
-    },
-    {
-      "id": "6",
-      "name": "Lsy04178",
-      "image": "https://github.com/Lsy04178.png"
-    }
-  ],
-  "stories": [
-    {
-      "id": "1",
-      "user_id": "1",
-      "title": "Story1",
-      "content": "Story1 Content",
-      "content_img": "https://images.pexels.com/photos/2893685/pexels-photo-2893685.jpeg?auto=compress&cs=tinysrgb&w=800"
-    },
-    {
-      "id": "2",
-      "user_id": "2",
-      "title": "Story2",
-      "content": "Story2 Content",
-      "content_img": "https://images.pexels.com/photos/2892012/pexels-photo-2892012.jpeg?auto=compress&cs=tinysrgb&w=8004"
-    },
-    {
-      "id": "3",
-      "user_id": "1",
-      "title": "Story3",
-      "content": "Story3 Content",
-      "content_img": "https://images.pexels.com/photos/922611/pexels-photo-922611.jpeg?auto=compress&cs=tinysrgb&w=800"
-    }
-  ],
-  "posts": [
-    {
-      "id": "1",
-      "name": "",
-      "post_description": "",
-      "post_img": "url",
-      "statements": [
-        {
-          "visitor": "",
-          "comment": ""
-        }
-      ],
-      "likes": ""
+      "id": 7,
+      "name": "ji",
+      "email": "",
+      "password": "",
+      "img": "https://cdn.pixabay.com/photo/2023/05/30/16/50/milk-8029140_1280.png",
+      "userToken": ""
     }
   ]
 }
